@@ -54,7 +54,7 @@ describe("Repositories", () => {
         title: "Umbriel",
         techs: ["Node", "Express", "TypeScript"]
       });
-
+    
     const response = await request(app)
       .put(`/repositories/${repository.body.id}`)
       .send({
@@ -73,6 +73,10 @@ describe("Repositories", () => {
   });
 
   it("should not be able to update a repository that does not exist", async () => {
+    await request(app).put(`/repositories/ac431a35-ffcf-4c5c-8ff9-7808e648acda`).expect(404);
+  });
+
+  it("should not be able to update a repository with invalid ID", async () => {
     await request(app).put(`/repositories/123`).expect(400);
   });
 
@@ -118,6 +122,10 @@ describe("Repositories", () => {
   });
 
   it("should not be able to delete a repository that does not exist", async () => {
+    await request(app).delete(`/repositories/ac431a35-ffcf-4c5c-8ff9-7808e648acda`).expect(404);
+  });
+
+  it("should not be able to delete a repository with invalid ID", async () => {
     await request(app).delete(`/repositories/123`).expect(400);
   });
 });

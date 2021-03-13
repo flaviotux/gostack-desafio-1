@@ -30,6 +30,12 @@ describe("Likes", () => {
 
   it("should not be able to like a repository that does not exist", async () => {
     await request(app)
+      .post(`/repositories/ac431a35-ffcf-4c5c-8ff9-7808e648acda/like`)
+      .expect(404);
+  });
+
+  it("should not be able to like a repository with invalid ID", async () => {
+    await request(app)
       .post(`/repositories/123/like`)
       .expect(400);
   });
